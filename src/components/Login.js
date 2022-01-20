@@ -1,11 +1,8 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import '../blocks/login/login.css';
 
 const Login = (props) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const history = useHistory();
 
   function handleEmailChange(evt) {
     setEmail(evt.target.value);
@@ -19,19 +16,18 @@ const Login = (props) => {
       return;
     }
     props.onLogin({ email, password })
-    // history.push('/');
   };
 
   return (
-    <div className='login'>
-      <p className='login__heading'>
+    <div className='auth-page'>
+      <p className='auth-page__heading'>
         Вход
       </p>
-      <form onSubmit={handleSubmit} className='login__form'>
-        <fieldset className='login__fieldset'>
+      <form onSubmit={handleSubmit} className='auth-page__form'>
+        <fieldset className='auth-page__fieldset'>
           <input
             required
-            className='login__input'
+            className='auth-page__input'
             id='email'
             name='email'
             type='text'
@@ -43,10 +39,10 @@ const Login = (props) => {
 
           <input
             required
-            className='login__input'
+            className='auth-page__input'
             id='password'
             name='password'
-            minLength='7'
+            minLength='5'
             maxLength='20'
             type='password'
             placeholder='Пароль'
@@ -56,11 +52,13 @@ const Login = (props) => {
           />
         </fieldset>
 
-        <button
-          type='submit'
-          className='login__submit-button'>
-          Войти
-        </button>
+        <div className='auth-page__button-container'>
+          <button
+            type='submit'
+            className='auth-page__submit-button'>
+            Войти
+          </button>
+        </div>
       </form>
     </div>
   )

@@ -9,3 +9,15 @@
   line-height: 1.23;
   color: #ffffff;
 }
+
+@media screen and (max-width: 767px) {
+  .header__nav-list {
+    box-sizing: border-box;
+    padding: 40px 0;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(84, 84, 84, .7);
+  }
+}
