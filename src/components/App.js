@@ -16,7 +16,7 @@ import { auth } from '../utils/auth'
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 
 function App() {
-  //registration & authorisation
+  //register & login
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [signupState, setSignupState] = React.useState(false);
@@ -86,7 +86,6 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    // setIsConfirmPopupOpen(false);
     setIsImagePopupOpen(false);
     setIsTooltipOpen(false);
 
@@ -94,7 +93,7 @@ function App() {
       setSelectedCard({});
     }, 500);
   }
-  //cards options
+  //card options
   function handleCardLike(card) {
     //check out whether there's my like on the card already
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -118,14 +117,13 @@ function App() {
       });
   }
 
-  //registration
+  //register a new user
   function handleRegister({ email, password }) {
     auth.register(email, password)
       .then((res) => {
         if (res) {
           handleSignupState();
           setTimeout(handleTooltipOpen, 500);
-          history.push('/signin');
         }
       })
       .catch((err) => {
@@ -137,19 +135,20 @@ function App() {
   function handleSignupState() {
     setSignupState(true);
   }
-  //authorisation
+  //login & save token
   function handleLogin({ email, password }) {
     auth.authorize(email, password)
       .then((res) => {
         localStorage.setItem('jwt', res.token)
         setIsLoggedIn(true);
+        setEmail(email);
         history.push('/');
       })
       .catch((err) => {
         console.log(err);
       })
   }
-  //sign out & remove token
+  //signout & remove token
   function handleSignout() {
     localStorage.removeItem('jwt');
     setIsLoggedIn(false);
@@ -157,7 +156,7 @@ function App() {
     history.push('/signin');
   }
 
-  //SOMETHING IS WRONG HERE!!!
+  //if token in local storage is correct
   React.useEffect(() => {
     const token = localStorage.getItem('jwt')
     if (token) {
@@ -190,14 +189,14 @@ function App() {
       <div className='page'>
 
         <Header
-          // содержимое header зависит от состояния аторизации пользователя
+          //header content depends on loggedIn state
           isLoggedIn={isLoggedIn}
           onSignOut={handleSignout}
           email={email}
         />
         <Switch>
           <ProtectedRoute path={'/'}
-            //защищенный путь, доступен только авторизованным пользователям
+            //protected path available to authorized users only
             exact path='/'
             isLoggedIn={isLoggedIn}
             component={Main}
@@ -212,7 +211,6 @@ function App() {
 
           <Route path='/signup'>
             <Register
-              //страница регистрации
               onRegister={handleRegister}
               openToolTip={handleTooltipOpen}
               signupState={handleSignupState}
@@ -221,7 +219,6 @@ function App() {
 
           <Route path='/signin'>
             <Login
-              //страница авторизации
               onLogin={handleLogin}
               signupState={handleSignupState}
             />
@@ -229,7 +226,7 @@ function App() {
 
           <Route>
             {isLoggedIn
-              //неавторизованный пользователь перенаправляется на страницу авторизации
+              //unauthorized user redirection
               ? <Redirect to='/' />
               : <Redirect to='/signin'
               />}

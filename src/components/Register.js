@@ -1,11 +1,9 @@
 import React from 'react';
-import { withRouter, Link, useHistory } from 'react-router-dom';
-import '../blocks/register/register.css';
+import { withRouter, Link } from 'react-router-dom';
 
 const Register = (props) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const history = useHistory();
 
   function handleEmailChange(evt) {
     setEmail(evt.target.value);
@@ -16,22 +14,17 @@ const Register = (props) => {
   function handleSubmit(evt) {
     evt.preventDefault();
     props.onRegister({ email, password })
-    // history.push('/signin');
-    setTimeout(() => {
-      setEmail('');
-      setPassword('');
-  }, 200);
   }
 
   return (
-    <div className='register'>
-      <p className='register__heading'>
+    <div className='auth-page'>
+      <p className='auth-page__heading'>
         Регистрация
       </p>
-      <form onSubmit={handleSubmit} className='register__form'>
-        <fieldset className='register__fieldset'>
+      <form onSubmit={handleSubmit} className='auth-page__form'>
+        <fieldset className='auth-page__fieldset'>
           <input
-            className='register__input'
+            className='auth-page__input'
             id='email'
             name='email'
             type='email'
@@ -42,10 +35,10 @@ const Register = (props) => {
           />
 
           <input
-            className='register__input'
+            className='auth-page__input'
             id='password'
             name='password'
-            minLength='7'
+            minLength='5'
             maxLength='20'
             type='password'
             placeholder='Пароль'
@@ -55,23 +48,25 @@ const Register = (props) => {
           />
         </fieldset>
 
-        <button
-          type='submit'
-          className='register__submit-button'
-        >
-          Зарегистрироваться
-        </button>
-      </form>
+        <div className='auth-page__button-container'>
+          <button
+            type='submit'
+            className='auth-page__submit-button'
+          >
+            Зарегистрироваться
+          </button>
 
-      <div className='register__signin'>
-        <p className='register__signin-text'>
-          Уже зарегистрированы?
-          <Link to='./Login' className='register__login-link'>
-            {' '}
-            Войти
-          </Link>
-        </p>
-      </div>
+          <div className='auth-page__signin'>
+            <p className='auth-page__signin-text'>
+              Уже зарегистрированы?
+              <Link to='./Login' className='auth-page__login-link'>
+                {' '}
+                Войти
+              </Link>
+            </p>
+          </div>
+        </div>
+      </form>
     </div>
   );
 }
