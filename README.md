@@ -2,7 +2,7 @@
 
 ## _Простой способ поделиться фото с друзьями и близкими_
 
-[![Mesto](./public/favicon.ico)](https://github.com/sergeyladorski/react-mesto-auth)
+[![Mesto](./public/favicon.ico)](https://sergeyladorski.github.io/react-mesto-auth/)
 
 Приложение с авторизацией и регистрацией пользователя. Оно взаимодействует сразу с двумя API:
 
@@ -59,7 +59,7 @@
 
 Перейти на страницу проекта (на данный момент недоступна в связи с ведущимися работами по разработке приложения).
 
-Перейти на [страницу проекта](https://github.com/sergeyladorski/react-mesto-auth)).
+Перейти на [страницу проекта](https://sergeyladorski.github.io/react-mesto-auth/)).
 Больше моих проектов на [GitHub](https://github.com/sergeyladorski)).
 
 **Sergey Ladorski**
