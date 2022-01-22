@@ -1,29 +1,23 @@
-import {React, useEffect, useState, useContext} from 'react';
+import {React, useEffect, useContext, useRef} from 'react';
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     const currentUser = useContext(CurrentUserContext);
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
 
+    const nameRef = useRef();
+    const descriptionRef = useRef();
     useEffect(() => {
-        setName(currentUser.name);
-        setDescription(currentUser.about);
-    }, [currentUser, isOpen]);
+        nameRef.current.value = currentUser.name;
+        descriptionRef.current.value = currentUser.about;
+    }, [isOpen, currentUser]);
 
-    function handleChangeName(e) {
-        setName(e.target.value);
-    }
-    function handleChangeDescription(e) {
-        setDescription(e.target.value);
-    }
     function handleSubmit(e) {
         e.preventDefault();
         // Передаём значения управляемых компонентов во внешний обработчик
         onUpdateUser({
-            name,
-            about: description,
+            name: nameRef.current.value,
+            about: descriptionRef.current.value,
         });
     }
 
@@ -42,8 +36,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                     id='name'
                     name='name'
                     placeholder='Имя'
-                    defaultValue={name}
-                    onChange={handleChangeName}
+                    ref={nameRef}
                     className='form__input'
                     required
                     minLength='2'
@@ -57,8 +50,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                     id='about'
                     name='about'
                     placeholder='О себе'
-                    defaultValue={description}
-                    onChange={handleChangeDescription}
+                    ref={descriptionRef}
                     className='form__input'
                     required
                     minLength='2'
