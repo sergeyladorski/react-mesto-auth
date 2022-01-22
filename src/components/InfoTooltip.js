@@ -1,18 +1,15 @@
 import React from 'react';
-import registerSuccess from '../images/icons/register-success.svg';
-import registerError from '../images/icons/register-error.svg';
-import { useHistory } from 'react-router-dom';
+import imageSuccess from '../images/icons/register-success.svg';
+import imageError from '../images/icons/register-error.svg';
+import { useLocation } from 'react-router-dom';
 
-function InfoTooltip({
-    name, signupState,
-    isOpen, onCloce }) {
 
-    const history = useHistory();
-    //push user to signin in case of success tooltip
-    function handleSuccesTooltipClose() {
-        onCloce();
-        history.push('/signin');
-    }
+export default function InfoTooltip({ name, signupState, isOpen, onClose }) {
+    const { pathname } = useLocation();
+    const successText = `${pathname === '/sign-up'
+        ? 'Вы успешно зарегистрировались!'
+        : 'Вход выполнен успешно!'}`;
+    const errorText = 'Что-то пошло не так! Попробуйте ещё раз.';
 
     return (
         <div className={`popup ${isOpen && 'popup_opened'}`}
@@ -22,28 +19,27 @@ function InfoTooltip({
                     type='button'
                     aria-label='закрыть'
                     className='popup__close'
-                    onClick={signupState
-                        ? handleSuccesTooltipClose
-                        : onCloce
-                    }
+                    onClick={onClose}
                 ></button>
 
                 <img
                     className='popup__image'
                     src={signupState
-                        ? registerSuccess
-                        : registerError
+                        ? imageSuccess
+                        : imageError
+                    }
+                    alt={signupState
+                        ? 'Success image'
+                        : 'Error image'
                     }
                 />
                 <h2 className='popup__heading'>
                     {signupState
-                        ? 'Вы успешно зарегистрировались!'
-                        : 'Что-то пошло не так! Попробуйте ещё раз.'
+                        ? successText
+                        : errorText
                     }
                 </h2>
             </div>
         </div>
     );
 }
-
-export default InfoTooltip;

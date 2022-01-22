@@ -4,48 +4,44 @@ import { Link, useLocation } from 'react-router-dom';
 import { useWindowDimensions } from '../hooks/useWindowDimensions';
 import Menu from './Menu';
 
-function Header({ isLoggedIn, onSignOut, email }) {
+export default function Header({ isLoggedIn, onSignOut, email, isMenuActive, onMenuClick }) {
     //linkURL & linkText depend on the current path
     const { pathname } = useLocation();
-    const linkText = `${pathname === '/signup' ? 'Войти' : 'Регистрация'}`;
-    const linkURL = `${pathname === '/signup' ? '/signin' : '/signup'}`;
+    const linkText = `${pathname === '/sign-up' ? 'Войти' : 'Регистрация'}`;
+    const linkURL = `${pathname === '/sign-up' ? '/sign-in' : '/sign-up'}`;
     const { width } = useWindowDimensions();
     const isMobile = (width <= 767);
 
     return (
         <>
-            {isLoggedIn && isMobile &&
+            {isLoggedIn && isMobile && isMenuActive &&
                 <Menu
                     email={email}
-                    onSignOut={onSignOut}
-                />
+                    onSignOut={onSignOut} />
             }
 
-
-            <header className={`header ${isLoggedIn && 'header_type_loggedin'}`}>
+            <header className='header'>
                 <img
                     src={logo}
                     alt='логотип Место'
                     className='header__logo'
                 />
-                {isLoggedIn ? (
-                    !isMobile &&
-                    <Menu
-                        email={email}
-                        onSignOut={onSignOut}
-                    />
-
-                ) : (
-                    <Link
+                {isLoggedIn
+                    ? (isMobile
+                        ? <button
+                            className={`header__menu-button ${isMenuActive && 'header__menu-button_active'}`}
+                            onClick={onMenuClick} />
+                        : <Menu
+                            email={email}
+                            onSignOut={onSignOut} />
+                    )
+                    : <Link
                         to={linkURL}
-                        className='header__nav-link'
-                    >
+                        className='header__nav-link'>
                         {linkText}
                     </Link>
-                )}
+                }
             </header>
         </>
     );
 }
-
-export default Header;

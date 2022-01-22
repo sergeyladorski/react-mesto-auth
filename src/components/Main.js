@@ -1,12 +1,12 @@
-import React from 'react';
+import {React, useContext} from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Card from './Card';
 
-function Main({
+export default function Main({
     onEditAvatar, onEditProfile, onAddPlace,
-    cards, onCardClick, onCardLike, onCardDelete
+    cards, onCardClick, onCardLike, onCardDeleteClick
 }) {
-    const currentUser = React.useContext(CurrentUserContext);
+    const currentUser = useContext(CurrentUserContext);
 
     return (
         <main className='content'>
@@ -53,7 +53,7 @@ function Main({
                             <Card
                                 onCardClick={onCardClick}
                                 onCardLike={onCardLike}
-                                onCardDelete={onCardDelete}
+                                onCardDeleteClick={onCardDeleteClick}
                                 key={card._id}
                                 card={card}
                             />
@@ -64,5 +64,3 @@ function Main({
         </main>
     );
 }
-
-export default Main;

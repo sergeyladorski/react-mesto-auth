@@ -1,8 +1,8 @@
-import React from 'react';
+import { React, useState } from 'react';
 
-const Login = (props) => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+export default function Login(props) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   function handleEmailChange(evt) {
     setEmail(evt.target.value);
@@ -63,5 +63,3 @@ const Login = (props) => {
     </div>
   )
 }
-
-export default (Login);

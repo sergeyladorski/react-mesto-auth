@@ -1,6 +1,7 @@
-function PopupWithForm({
-    name, title, defaultValue, children, 
-    isOpen, onCloce, closeAllPopups, onChange, onSubmit}) {
+export default function PopupWithForm({
+    name, title, defaultValue, children,
+    isOpen, onClose, closeAllPopups, onChange, onSubmit }) {
+
     return (
         <div className={`popup ${isOpen && 'popup_opened'}`}
             id={`popup-${name}`}>
@@ -9,13 +10,13 @@ function PopupWithForm({
                     type='button'
                     aria-label='закрыть'
                     className='popup__close'
-                    onClick={onCloce}
+                    onClick={onClose}
                 ></button>
                 <form
                     name={`form-${name}`}
                     className='form'
                     id={`form-${name}`}
-                    noValidate
+                    // noValidate
                     autoComplete='off'
                     onChange={onChange}
                     onSubmit={onSubmit}
@@ -29,8 +30,8 @@ function PopupWithForm({
                     <fieldset className='form__submit'>
                         <input
                             type='submit'
-                            value={`${defaultValue}`}
-                            data-value={`${defaultValue}`}
+                            value={defaultValue}
+                            data-value={defaultValue}
                             className='form__save'
                             onClick={closeAllPopups}
                         />
@@ -40,5 +41,3 @@ function PopupWithForm({
         </div>
     );
 }
-
-export default PopupWithForm;
