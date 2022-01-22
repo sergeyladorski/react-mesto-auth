@@ -1,10 +1,10 @@
-import React from 'react';
+import {React, useState, useEffect} from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 
-    const [name, setName] = React.useState('');
-    const [link, setLink] = React.useState('');
+    const [name, setName] = useState('');
+    const [link, setLink] = useState('');
 
     function handleNameChange(e) {
         setName(e.target.value);
@@ -15,16 +15,17 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     //reset inputs on close
     function handleClosePopup() {
         onClose();
-        setTimeout(() => {
-            setName('');
-            setLink('');
-        }, 200);
     }
+    useEffect(() => {
+        setName('');
+        setLink('');
+    }, [isOpen]);
+
     function handleSubmit(e) {
         e.preventDefault();
         onAddPlace({ name, link });
-        handleClosePopup();
     };
+    
 
     return (
         <PopupWithForm
@@ -32,7 +33,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
             title='Новое место'
             defaultValue='Создать'
             isOpen={isOpen}
-            onCloce={handleClosePopup}
+            onClose={handleClosePopup}
             onSubmit={handleSubmit}
         >
             <label className='form__input-label' htmlFor='place'>
@@ -67,5 +68,3 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         </PopupWithForm>
     );
 }
-
-export default AddPlacePopup;

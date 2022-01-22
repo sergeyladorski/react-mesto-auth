@@ -1,36 +1,43 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import ProtectedRoute from './ProtectedRoute';
+import Register from './Register';
+import Login from './Login';
+import InfoTooltip from './InfoTooltip';
 import Header from './Header';
 import Main from './Main';
-import Footer from './Footer';
-import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import EditProfilePopup from './EditProfilePopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
-import InfoTooltip from './InfoTooltip';
-import Login from './Login';
-import Register from './Register';
-import ProtectedRoute from './ProtectedRoute';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import ConfirmPopup from './ConfirmPopup';
+import Footer from './Footer';
 import { api } from '../utils/api';
 import { auth } from '../utils/auth'
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 
-function App() {
+
+export default function App() {
   //register & login
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [email, setEmail] = React.useState('');
-  const [signupState, setSignupState] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [email, setEmail] = useState('');
+  const [signupState, setSignupState] = useState(false);
   const history = useHistory();
   //popup state
-  const [isTooltipOpen, setIsTooltipOpen] = React.useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
+  const [isMenuActive, setIsMenuActive] = useState(false);
+  function handleMenuClick() {
+    setIsMenuActive(!isMenuActive);
+  }
   //user info & cards
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [cards, setCards] = React.useState([]);
-  const [selectedCard, setSelectedCard] = React.useState({});
+  const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
+  const [selectedCard, setSelectedCard] = useState({});
   //open popups
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -48,6 +55,7 @@ function App() {
   function handleTooltipOpen() {
     setIsTooltipOpen(true);
   }
+
   //update user info
   function handleUpdateUser(userInfo) {
     api.setUserInfo(userInfo)
@@ -87,11 +95,10 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsImagePopupOpen(false);
+    setIsConfirmPopupOpen(false);
     setIsTooltipOpen(false);
 
-    setTimeout(() => {
-      setSelectedCard({});
-    }, 500);
+    setSelectedCard({});
   }
   //card options
   function handleCardLike(card) {
@@ -106,11 +113,16 @@ function App() {
         console.log(err);
       });
   }
+  function handleCardDeleteClick(card) {
+    setSelectedCard(card);
+    setIsConfirmPopupOpen(true);
+  }
   function handleCardDelete(card) {
     //send a request to API and get new cards array
     api.deleteCard(card._id)
       .then((newCard) => {
         setCards((state) => state.filter((c) => c._id === card._id ? '' : newCard));
+        setIsConfirmPopupOpen(false);
       })
       .catch((err) => {
         console.log(err);
@@ -122,18 +134,16 @@ function App() {
     auth.register(email, password)
       .then((res) => {
         if (res) {
-          handleSignupState();
-          setTimeout(handleTooltipOpen, 500);
+          setSignupState(true);
+          handleTooltipOpen();
+          history.push('/sign-in')
         }
       })
       .catch((err) => {
         console.log(err);
         setSignupState(false);
-        setTimeout(handleTooltipOpen, 500);
+        handleTooltipOpen();
       });
-  }
-  function handleSignupState() {
-    setSignupState(true);
   }
   //login & save token
   function handleLogin({ email, password }) {
@@ -142,10 +152,14 @@ function App() {
         localStorage.setItem('jwt', res.token)
         setIsLoggedIn(true);
         setEmail(email);
-        history.push('/');
+        setSignupState(true);
+        handleTooltipOpen();
+        history.push('/')
       })
       .catch((err) => {
         console.log(err);
+        setSignupState(false);
+        handleTooltipOpen();
       })
   }
   //signout & remove token
@@ -153,11 +167,10 @@ function App() {
     localStorage.removeItem('jwt');
     setIsLoggedIn(false);
     setEmail('');
-    history.push('/signin');
+    history.push('/sign-in');
   }
-
   //if token in local storage is correct
-  React.useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem('jwt')
     if (token) {
       auth.getData(token)
@@ -171,31 +184,56 @@ function App() {
   }, [history])
 
   //initial user info & cards set
-  React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getCards()])
-      .then(resData => {
-        const [userData, cardList] = resData;
-        setCurrentUser(userData);
-        setCards(cardList);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }, [])
+  useEffect(() => {
+    if (isLoggedIn) {
+      // вызываем получение данных
+      Promise.all([api.getUserInfo(), api.getCards()])
+        .then(resData => {
+          const [userData, cardList] = resData;
+          setCurrentUser(userData);
+          setCards(cardList);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }, [isLoggedIn]);
 
+
+  function closeAllPopupsByOverlay(evt) {
+    if (evt.target.classList.contains('popup')) {
+      closeAllPopups();
+    }
+  }
+  const closeAllPopupsByEsc = (evt) => {
+    if (evt.keyCode === 27) {
+      closeAllPopups();
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', closeAllPopupsByEsc);
+    document.addEventListener('mouseup', closeAllPopupsByOverlay);
+
+    return () => {
+      document.removeEventListener('keydown', closeAllPopupsByEsc);
+      document.removeEventListener('mouseup', closeAllPopupsByOverlay);
+    }
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
-
         <Header
           //header content depends on loggedIn state
           isLoggedIn={isLoggedIn}
           onSignOut={handleSignout}
           email={email}
+          isMenuActive={isMenuActive}
+          onMenuClick={handleMenuClick}
         />
         <Switch>
-          <ProtectedRoute path={'/'}
+          <ProtectedRoute
             //protected path available to authorized users only
             exact path='/'
             isLoggedIn={isLoggedIn}
@@ -206,29 +244,27 @@ function App() {
             cards={cards}
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
+            onCardDeleteClick={handleCardDeleteClick}
           />
 
-          <Route path='/signup'>
+          <Route path='/sign-up'>
             <Register
               onRegister={handleRegister}
               openToolTip={handleTooltipOpen}
-              signupState={handleSignupState}
             />
           </Route>
 
-          <Route path='/signin'>
+          <Route path='/sign-in'>
             <Login
               onLogin={handleLogin}
-              signupState={handleSignupState}
             />
           </Route>
 
-          <Route>
+          <Route path='*'>
             {isLoggedIn
               //unauthorized user redirection
               ? <Redirect to='/' />
-              : <Redirect to='/signin'
+              : <Redirect to='/sign-in'
               />}
           </Route>
         </Switch>
@@ -256,16 +292,22 @@ function App() {
           isOpen={isImagePopupOpen}
           onClose={closeAllPopups}
         />
+        <ConfirmPopup
+          title='Вы уверены?'
+          defaultValue='Да'
+          card={selectedCard}
+          isOpen={isConfirmPopupOpen}
+          onClose={closeAllPopups}
+          onConfirm={handleCardDelete}
+        />
 
         <InfoTooltip
           name='tooltip'
           isOpen={isTooltipOpen}
-          onCloce={closeAllPopups}
+          onClose={closeAllPopups}
           signupState={signupState}
         />
       </div>
     </CurrentUserContext.Provider>
   );
 }
-
-export default App;

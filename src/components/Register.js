@@ -1,9 +1,9 @@
-import React from 'react';
+import {React, useState} from 'react';
 import { withRouter, Link } from 'react-router-dom';
 
-const Register = (props) => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+export default function Register (props) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   function handleEmailChange(evt) {
     setEmail(evt.target.value);
@@ -70,5 +70,3 @@ const Register = (props) => {
     </div>
   );
 }
-
-export default withRouter(Register);

@@ -1,8 +1,8 @@
-import React from 'react';
+import {React, useContext} from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Card({ card, onCardClick, onCardLike, onCardDelete }) {
-  const currentUser = React.useContext(CurrentUserContext);
+export default function Card({ card, onCardClick, onCardLike, onCardDeleteClick }) {
+  const currentUser = useContext(CurrentUserContext);
   const isOwn = card.owner._id === currentUser._id;
   const cardDeleteButtonClassName = (
     `gallery__delete-photo ${isOwn && 'gallery__delete-photo_active'}`
@@ -22,7 +22,8 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     onCardLike(card);
   }
   function handleDeleteClick() {
-    onCardDelete(card)
+    // onCardDelete(card)
+    onCardDeleteClick(card)
   }
 
   return (
@@ -47,4 +48,3 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     </li>
   )
 }
-export default Card;

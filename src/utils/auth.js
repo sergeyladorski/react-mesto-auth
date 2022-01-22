@@ -24,10 +24,6 @@ export class Auth {
             .then((res) => {
                 return res;
             })
-            .catch((err) => {
-                console.log(err);
-                return Promise.reject(err);
-            });
     };
     //authorisation
     authorize(email, password) {
@@ -49,10 +45,6 @@ export class Auth {
                     throw new Error('Пользователь с email не найден');
                 }
             })
-            .catch((err) => {
-                console.log(err);
-                return Promise.reject(err);
-            });
     };
     //get access as a loggedIn user
     getData(token) {
@@ -77,10 +69,6 @@ export class Auth {
             .then((data) => {
                 return data;
             })
-            .catch((err) => {
-                console.log(err);
-                return Promise.reject(err);
-            });
     };
 }
 
