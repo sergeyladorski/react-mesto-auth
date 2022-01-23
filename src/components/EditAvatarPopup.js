@@ -4,9 +4,6 @@ import PopupWithForm from './PopupWithForm';
 export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     const avatarRef = useRef();
     //reset inputs on close
-    function handleClosePopup() {
-        onClose();
-    }
     useEffect(() => {
         avatarRef.current.value = '';
     }, [isOpen]);
@@ -22,7 +19,7 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
             title='Обновить аватар'
             defaultValue='Сохранить'
             isOpen={isOpen}
-            onClose={handleClosePopup}
+            onClose={onClose}
             onSubmit={handleSubmit}
         >
             <label className='form__input-label' htmlFor='avatar'>

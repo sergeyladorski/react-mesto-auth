@@ -1,4 +1,4 @@
-.auth-page__heading {
+.auth-content__heading {
   max-width: 358px;
   width: 100%;
   margin: 0 auto 50px;
@@ -9,7 +9,7 @@
   color: #ffffff;
 }
 @media screen and (max-width: 767px) {
-  .auth-page__heading {
+  .auth-content__heading {
     max-width: 260px;
     margin-bottom: 40px;
     font-size: 20px;

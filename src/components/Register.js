@@ -17,14 +17,14 @@ export default function Register (props) {
   }
 
   return (
-    <div className='auth-page'>
-      <p className='auth-page__heading'>
+    <div className='auth-content'>
+      <p className='auth-content__heading'>
         Регистрация
       </p>
-      <form onSubmit={handleSubmit} className='auth-page__form'>
-        <fieldset className='auth-page__fieldset'>
+      <form onSubmit={handleSubmit} className='auth-content__form'>
+        <fieldset className='auth-content__fieldset'>
           <input
-            className='auth-page__input'
+            className='auth-content__input'
             id='email'
             name='email'
             type='email'
@@ -35,7 +35,7 @@ export default function Register (props) {
           />
 
           <input
-            className='auth-page__input'
+            className='auth-content__input'
             id='password'
             name='password'
             minLength='5'
@@ -48,18 +48,18 @@ export default function Register (props) {
           />
         </fieldset>
 
-        <div className='auth-page__button-container'>
+        <div className='auth-content__button-container'>
           <button
             type='submit'
-            className='auth-page__submit-button'
+            className='auth-content__submit-button'
           >
             Зарегистрироваться
           </button>
 
-          <div className='auth-page__signin'>
-            <p className='auth-page__signin-text'>
+          <div className='auth-content__signin'>
+            <p className='auth-content__signin-text'>
               Уже зарегистрированы?
-              <Link to='./Login' className='auth-page__login-link'>
+              <Link to='./Login' className='auth-content__login-link'>
                 {' '}
                 Войти
               </Link>

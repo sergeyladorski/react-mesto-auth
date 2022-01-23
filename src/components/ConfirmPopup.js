@@ -1,7 +1,26 @@
-import React from 'react';
+import { React, useEffect } from 'react';
 
 export default function ConfirmPopup({
     name, title, defaultValue, isOpen, onClose, closeAllPopups, onConfirm, card }) {
+
+    useEffect(() => {
+        if (!isOpen) return;
+        const handleEscapeClose = (evt) => {
+            if (evt.key === "Escape") {
+                onClose();
+            }
+        };
+        document.addEventListener("keydown", handleEscapeClose);
+        return () => {
+            document.removeEventListener("keydown", handleEscapeClose);
+        };
+    }, [isOpen, onClose]);
+
+    const handleOverlayClose = (evt) => {
+        if (evt.target === evt.currentTarget && isOpen) {
+            onClose();
+        }
+    };
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -10,7 +29,8 @@ export default function ConfirmPopup({
 
     return (
         <div className={`popup ${isOpen && 'popup_opened'}`}
-            id={`popup-${name}`}>
+            id={`popup-${name}`}
+            onClick={handleOverlayClose}>
             <div className='popup__container'>
                 <button
                     type='button'

@@ -4,17 +4,17 @@
 @import url(./vendor/fonts/fonts.css);
 /*page*/
 @import url(./blocks/page/page.css);
-/*auth-page*/
-@import url(./blocks/auth-page/auth-page.css);
-@import url(./blocks/auth-page/__form/auth-page__form.css);
-@import url(./blocks/auth-page/__heading/auth-page__heading.css);
-@import url(./blocks/auth-page/__fieldset/auth-page__fieldset.css);
-@import url(./blocks/auth-page/__input/auth-page__input.css);
-@import url(./blocks/auth-page/__button-container/auth-page__button-container.css);
-@import url(./blocks/auth-page/__submit-button/auth-page__submit-button.css);
-@import url(./blocks/auth-page/__signin/auth-page__signin.css);
-@import url(./blocks/auth-page/__signin-text/auth-page__signin-text.css);
-@import url(./blocks/auth-page/__login-link/auth-page__login-link.css);
+/*auth-content*/
+@import url(./blocks/auth-content/auth-content.css);
+@import url(./blocks/auth-content/__form/auth-content__form.css);
+@import url(./blocks/auth-content/__heading/auth-content__heading.css);
+@import url(./blocks/auth-content/__fieldset/auth-content__fieldset.css);
+@import url(./blocks/auth-content/__input/auth-content__input.css);
+@import url(./blocks/auth-content/__button-container/auth-content__button-container.css);
+@import url(./blocks/auth-content/__submit-button/auth-content__submit-button.css);
+@import url(./blocks/auth-content/__signin/auth-content__signin.css);
+@import url(./blocks/auth-content/__signin-text/auth-content__signin-text.css);
+@import url(./blocks/auth-content/__login-link/auth-content__login-link.css);
 /*header*/
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);

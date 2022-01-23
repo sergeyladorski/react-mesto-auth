@@ -1,4 +1,4 @@
-.auth-page__form {
+.auth-content__form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,7 +6,7 @@
   gap: 216px;
 }
 @media screen and (max-width: 767px) {
-  .auth-page__form {
+  .auth-content__form {
     gap: 173px;
   }
 }

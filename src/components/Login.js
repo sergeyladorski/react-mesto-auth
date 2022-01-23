@@ -19,15 +19,15 @@ export default function Login(props) {
   };
 
   return (
-    <div className='auth-page'>
-      <p className='auth-page__heading'>
+    <div className='auth-content'>
+      <p className='auth-content__heading'>
         Вход
       </p>
-      <form onSubmit={handleSubmit} className='auth-page__form'>
-        <fieldset className='auth-page__fieldset'>
+      <form onSubmit={handleSubmit} className='auth-content__form'>
+        <fieldset className='auth-content__fieldset'>
           <input
             required
-            className='auth-page__input'
+            className='auth-content__input'
             id='email'
             name='email'
             type='text'
@@ -39,7 +39,7 @@ export default function Login(props) {
 
           <input
             required
-            className='auth-page__input'
+            className='auth-content__input'
             id='password'
             name='password'
             minLength='5'
@@ -52,10 +52,10 @@ export default function Login(props) {
           />
         </fieldset>
 
-        <div className='auth-page__button-container'>
+        <div className='auth-content__button-container'>
           <button
             type='submit'
-            className='auth-page__submit-button'>
+            className='auth-content__submit-button'>
             Войти
           </button>
         </div>

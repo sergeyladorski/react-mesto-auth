@@ -1,4 +1,4 @@
-.auth-page__submit-button {
+.auth-content__submit-button {
   width: 358px;
   height: 50px;
   background: #ffffff;
@@ -11,12 +11,12 @@
   text-align: center;
   cursor: pointer;
 }
-.auth-page__submit-button:hover {
+.auth-content__submit-button:hover {
   opacity: 0.85;
   transition: 0.3s;
 }
 @media screen and (max-width: 767px) {
-  .auth-page__submit-button {
+  .auth-content__submit-button {
     width: 260px;
     height: 46px;
     font-size: 16px;
