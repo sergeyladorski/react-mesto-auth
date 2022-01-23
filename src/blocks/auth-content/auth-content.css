@@ -1,14 +1,15 @@
-.auth-page {
+.auth-content {
   box-sizing: border-box;
   padding-top: 60px;
   padding-bottom: 65px;
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  flex-grow: 1;
+  justify-content: flex-start;
 }
 @media screen and (max-width: 767px) {
-  .auth-page {
+  .auth-content {
     padding-top: 40px;
     padding-bottom: 48px;
   }

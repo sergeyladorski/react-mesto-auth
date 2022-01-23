@@ -13,9 +13,6 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         setLink(e.target.value);
     }
     //reset inputs on close
-    function handleClosePopup() {
-        onClose();
-    }
     useEffect(() => {
         setName('');
         setLink('');
@@ -33,7 +30,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
             title='Новое место'
             defaultValue='Создать'
             isOpen={isOpen}
-            onClose={handleClosePopup}
+            onClose={onClose}
             onSubmit={handleSubmit}
         >
             <label className='form__input-label' htmlFor='place'>

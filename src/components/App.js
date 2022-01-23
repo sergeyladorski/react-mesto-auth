@@ -52,9 +52,6 @@ export default function App() {
     setSelectedCard(card);
     setIsImagePopupOpen(true);
   }
-  function handleTooltipOpen() {
-    setIsTooltipOpen(true);
-  }
 
   //update user info
   function handleUpdateUser(userInfo) {
@@ -135,14 +132,15 @@ export default function App() {
       .then((res) => {
         if (res) {
           setSignupState(true);
-          handleTooltipOpen();
           history.push('/sign-in')
         }
       })
       .catch((err) => {
         console.log(err);
         setSignupState(false);
-        handleTooltipOpen();
+      })
+      .finally(() => {
+        setIsTooltipOpen(true);
       });
   }
   //login & save token
@@ -150,16 +148,17 @@ export default function App() {
     auth.authorize(email, password)
       .then((res) => {
         localStorage.setItem('jwt', res.token)
-        setIsLoggedIn(true);
-        setEmail(email);
         setSignupState(true);
-        handleTooltipOpen();
+        setEmail(email);
+        setIsLoggedIn(true);
         history.push('/')
       })
       .catch((err) => {
         console.log(err);
         setSignupState(false);
-        handleTooltipOpen();
+      })
+      .finally(() => {
+        setIsTooltipOpen(true);
       })
   }
   //signout & remove token
@@ -199,28 +198,6 @@ export default function App() {
     }
   }, [isLoggedIn]);
 
-
-  function closeAllPopupsByOverlay(evt) {
-    if (evt.target.classList.contains('popup')) {
-      closeAllPopups();
-    }
-  }
-  const closeAllPopupsByEsc = (evt) => {
-    if (evt.keyCode === 27) {
-      closeAllPopups();
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener('keydown', closeAllPopupsByEsc);
-    document.addEventListener('mouseup', closeAllPopupsByOverlay);
-
-    return () => {
-      document.removeEventListener('keydown', closeAllPopupsByEsc);
-      document.removeEventListener('mouseup', closeAllPopupsByOverlay);
-    }
-  }, []);
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
@@ -250,7 +227,6 @@ export default function App() {
           <Route path='/sign-up'>
             <Register
               onRegister={handleRegister}
-              openToolTip={handleTooltipOpen}
             />
           </Route>
 
