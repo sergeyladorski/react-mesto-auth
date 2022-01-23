@@ -18,9 +18,9 @@
 
 ## Инструкция по запуску приложения
 
-- Клонировать проект git clone https://github.com/sergeyladorski/react-mesto-auth.git;
-- Установить зависимости npm install;
-- Запустить локальный сервер npm start. В браузере откроется проект по адресу http://localhost:3000.
+- Клонировать проект `git clone https://github.com/sergeyladorski/react-mesto-auth.git`;
+- Установить зависимости `npm install react-mesto-auth --save-dev`;
+- Запустить локальный сервер `npm start`. В браузере откроется проект по адресу http://localhost:3000.
 
 ## Features
 
@@ -43,11 +43,16 @@
 В проекте задействованы следующие технологии:
 
 - HTML;
-- CSS;
+- CSS
+  - Flexbox;
+  - Grid.
+- BEM Nested;
+- JavaScript;
+- OOP;
 - ReactJS;
 - ReactHooks;
 - ReactRouter;
-- API;
+- Rest API;
 - Webpack;
 - Git.
 
