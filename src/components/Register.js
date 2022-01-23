@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Register (props) {
   const [email, setEmail] = useState('');
