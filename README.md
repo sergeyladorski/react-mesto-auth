@@ -19,7 +19,7 @@
 ## Инструкция по запуску приложения
 
 - Клонировать проект `git clone https://github.com/sergeyladorski/react-mesto-auth.git`;
-- Установить зависимости `npm install react-mesto-auth --save-dev`;
+- Установить зависимости `npm install <dependency-name> --save-dev`;
 - Запустить локальный сервер `npm start`. В браузере откроется проект по адресу http://localhost:3000.
 
 ## Features
