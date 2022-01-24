@@ -62,7 +62,7 @@
 - Индикаторы загрузки данных на сервер: блокировка и смена внешнего вида кнопки submit форм;
 - Оптимизация кода. Если найду, что еще можно улучшить ;)
 
-Перейти на [страницу проекта](https://sergeyladorski.github.io/react-mesto-auth/)).  
-Больше моих проектов на [GitHub](https://github.com/sergeyladorski)).
+Перейти на [страницу проекта](https://sergeyladorski.github.io/react-mesto-auth/).  
+Больше моих проектов на [GitHub](https://github.com/sergeyladorski).
 
 **Sergey Ladorski**
