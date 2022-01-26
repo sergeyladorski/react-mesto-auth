@@ -18,9 +18,9 @@
 
 ## Инструкция по запуску приложения
 
-- Клонировать проект `git clone https://github.com/sergeyladorski/react-mesto-auth.git`;
-- Установить зависимости `npm install <dependency-name> --save-dev`;
-- Запустить локальный сервер `npm start`. В браузере откроется проект по адресу http://localhost:3000.
+- Клонировать проект https://github.com/sergeyladorski/react-mesto-auth.git;
+- Установить зависимости npm install;
+- Запустить локальный сервер npm start. В браузере откроется проект по адресу http://localhost:3000.
 
 ## Features
 
@@ -43,16 +43,11 @@
 В проекте задействованы следующие технологии:
 
 - HTML;
-- CSS
-  - Flexbox;
-  - Grid.
-- BEM Nested;
-- JavaScript;
-- OOP;
+- CSS;
 - ReactJS;
 - ReactHooks;
 - ReactRouter;
-- Rest API;
+- API;
 - Webpack;
 - Git.
 
@@ -62,7 +57,10 @@
 - Индикаторы загрузки данных на сервер: блокировка и смена внешнего вида кнопки submit форм;
 - Оптимизация кода. Если найду, что еще можно улучшить ;)
 
-Перейти на [страницу проекта](https://sergeyladorski.github.io/react-mesto-auth/).  
-Больше моих проектов на [GitHub](https://github.com/sergeyladorski).
+
+Перейти на страницу проекта (на данный момент недоступна в связи с ведущимися работами по разработке приложения).
+
+Перейти на [страницу проекта](https://sergeyladorski.github.io/react-mesto-auth/)).
+Больше моих проектов на [GitHub](https://github.com/sergeyladorski)).
 
 **Sergey Ladorski**
