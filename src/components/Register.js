@@ -1,7 +1,7 @@
-import {React, useState} from 'react';
+import { React, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Register (props) {
+export default function Register(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -51,9 +51,10 @@ export default function Register (props) {
         <div className='auth-content__button-container'>
           <button
             type='submit'
-            className='auth-content__submit-button'
+            className={`auth-content__submit-button ${props.isLoading && 'auth-content__submit-button_inactive'}`}
+            disabled={props.isLoading}
           >
-            Зарегистрироваться
+          {`${props.isLoading ? 'Регистрация...' : 'Зарегистрироваться'}`}
           </button>
 
           <div className='auth-content__signin'>

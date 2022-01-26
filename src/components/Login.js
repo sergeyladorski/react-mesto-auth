@@ -55,8 +55,10 @@ export default function Login(props) {
         <div className='auth-content__button-container'>
           <button
             type='submit'
-            className='auth-content__submit-button'>
-            Войти
+            className={`auth-content__submit-button ${props.isLoading && 'auth-content__submit-button_inactive'}`}
+            disabled={props.isLoading}
+          >
+          {`${props.isLoading ? 'Выполняется вход...' : 'Войти'}`}
           </button>
         </div>
       </form>

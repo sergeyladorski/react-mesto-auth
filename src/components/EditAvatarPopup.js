@@ -1,7 +1,7 @@
 import {React, useEffect, useRef} from 'react';
 import PopupWithForm from './PopupWithForm';
 
-export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
+export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
     const avatarRef = useRef();
     //reset inputs on close
     useEffect(() => {
@@ -21,6 +21,7 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleSubmit}
+            isLoading={isLoading}
         >
             <label className='form__input-label' htmlFor='avatar'>
                 <input
