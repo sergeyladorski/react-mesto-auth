@@ -1,8 +1,8 @@
-import { React, useEffect } from 'react';
+import { React, useState, useEffect } from 'react';
 
 export default function PopupWithForm({
     name, title, defaultValue, children,
-    isOpen, onClose, closeAllPopups, onChange, onSubmit }) {
+    isOpen, onClose, closeAllPopups, onChange, onSubmit, isLoading }) {
 
     useEffect(() => {
         if (!isOpen) return;
@@ -52,9 +52,9 @@ export default function PopupWithForm({
                     <fieldset className='form__submit'>
                         <input
                             type='submit'
-                            value={defaultValue}
-                            data-value={defaultValue}
-                            className='form__save'
+                            value={`${isLoading ? 'Сохранение...' : defaultValue}`}
+                            className={`form__save ${isLoading && 'form__save_inactive'}`}
+                            disabled={isLoading}
                             onClick={closeAllPopups}
                         />
                     </fieldset>

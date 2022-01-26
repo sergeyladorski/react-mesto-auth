@@ -1,7 +1,7 @@
 import { React, useEffect } from 'react';
 
 export default function ConfirmPopup({
-    name, title, defaultValue, isOpen, onClose, closeAllPopups, onConfirm, card }) {
+    name, title, defaultValue, isOpen, onClose, closeAllPopups, onConfirm, card, isLoading }) {
 
     useEffect(() => {
         if (!isOpen) return;
@@ -47,9 +47,9 @@ export default function ConfirmPopup({
                     <h2 className='form__heading'>{title}</h2>
                     <input
                         type='submit'
-                        value={defaultValue}
-                        data-value={defaultValue}
-                        className='form__save'
+                        value={`${isLoading ? 'Сохранение...' : defaultValue}`}
+                        disabled={isLoading}
+                        className={`form__save ${isLoading && 'form__save_inactive'}`}
                         onClick={closeAllPopups}
                     />
                 </form>

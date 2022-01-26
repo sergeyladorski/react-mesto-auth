@@ -20,8 +20,10 @@ import { auth } from '../utils/auth'
 export default function App() {
   //register & login
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [email, setEmail] = useState('');
   const [signupState, setSignupState] = useState(false);
+  const [email, setEmail] = useState('');
+  const [isMenuActive, setIsMenuActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   //popup state
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
@@ -30,7 +32,6 @@ export default function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
-  const [isMenuActive, setIsMenuActive] = useState(false);
   function handleMenuClick() {
     setIsMenuActive(!isMenuActive);
   }
@@ -55,6 +56,7 @@ export default function App() {
 
   //update user info
   function handleUpdateUser(userInfo) {
+    setIsLoading(true);
     api.setUserInfo(userInfo)
       .then((newUserInfo) => {
         setCurrentUser(newUserInfo);
@@ -63,9 +65,13 @@ export default function App() {
       .catch((err) => {
         console.log(err);
       })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
   //update user avatar
   function handleUpdateAvatar(avatar) {
+    setIsLoading(true);
     api.setUserAvatar(avatar)
       .then((newAvatar) => {
         setCurrentUser(newAvatar);
@@ -74,9 +80,13 @@ export default function App() {
       .catch((err) => {
         console.log(err);
       })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
   //add a new place
   function handleAddPlaceSubmit(card) {
+    setIsLoading(true);
     api.postCard(card)
       .then((newCard) => {
         setCards([newCard, ...cards]);
@@ -85,6 +95,9 @@ export default function App() {
       .catch((err) => {
         console.log(err);
       })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
   //close all popoups
   function closeAllPopups() {
@@ -115,19 +128,24 @@ export default function App() {
     setIsConfirmPopupOpen(true);
   }
   function handleCardDelete(card) {
+    setIsLoading(true);
     //send a request to API and get new cards array
     api.deleteCard(card._id)
       .then((newCard) => {
         setCards((state) => state.filter((c) => c._id === card._id ? '' : newCard));
-        setIsConfirmPopupOpen(false);
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   //register a new user
   function handleRegister({ email, password }) {
+    setIsLoading(true);
     auth.register(email, password)
       .then((res) => {
         if (res) {
@@ -141,10 +159,12 @@ export default function App() {
       })
       .finally(() => {
         setIsTooltipOpen(true);
+        setIsLoading(false);
       });
   }
   //login & save token
   function handleLogin({ email, password }) {
+    setIsLoading(true);
     auth.authorize(email, password)
       .then((res) => {
         localStorage.setItem('jwt', res.token)
@@ -159,6 +179,7 @@ export default function App() {
       })
       .finally(() => {
         setIsTooltipOpen(true);
+        setIsLoading(false);
       })
   }
   //signout & remove token
@@ -227,12 +248,14 @@ export default function App() {
           <Route path='/sign-up'>
             <Register
               onRegister={handleRegister}
+              isLoading={isLoading}
             />
           </Route>
 
           <Route path='/sign-in'>
             <Login
               onLogin={handleLogin}
+              isLoading={isLoading}
             />
           </Route>
 
@@ -250,16 +273,19 @@ export default function App() {
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+          isLoading={isLoading}
         />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+          isLoading={isLoading}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
+          isLoading={isLoading}
         />
 
         <ImagePopup
@@ -275,6 +301,7 @@ export default function App() {
           isOpen={isConfirmPopupOpen}
           onClose={closeAllPopups}
           onConfirm={handleCardDelete}
+          isLoading={isLoading}
         />
 
         <InfoTooltip
