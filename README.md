@@ -55,11 +55,10 @@
 ## Планы по доработке проекта:
 
 - Валидация форм;
-- Оптимизация кода;
-- Что-то помимо указанного выше, если найду, что еще можно улучшить ;)
+- Оптимизация кода.
 
 
-Перейти на [страницу проекта](https://sergeyladorski.github.io/react-mesto-auth/)).
-Больше моих проектов на [GitHub](https://github.com/sergeyladorski)).
+Перейти на [страницу проекта](https://sergeyladorski.github.io/react-mesto-auth/).
+Больше моих проектов на [GitHub](https://github.com/sergeyladorski).
 
 **Sergey Ladorski**
