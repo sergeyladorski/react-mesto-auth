@@ -4,7 +4,12 @@
 
 [![Mesto](./public/favicon.ico)](https://sergeyladorski.github.io/react-mesto-auth/)
 
-Приложение с авторизацией и регистрацией пользователя. Оно взаимодействует сразу с двумя API:
+Приложение с авторизацией и регистрацией пользователя. 
+
+# Как найти
+Перейти на [страницу проекта](https://sergeyladorski.github.io/react-mesto-auth/).
+
+Приложение взаимодействует сразу с двумя API:
 
 - API авторизации `https://auth.nomoreparties.co`;
 - API редактирования пользователя и получения карточек `https://mesto.nomoreparties.co/v1`.
@@ -58,7 +63,6 @@
 - Оптимизация кода.
 
 
-Перейти на [страницу проекта](https://sergeyladorski.github.io/react-mesto-auth/).
 Больше моих проектов на [GitHub](https://github.com/sergeyladorski).
 
 **Sergey Ladorski**
